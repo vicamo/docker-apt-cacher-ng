@@ -29,7 +29,6 @@ If you find this image useful here's how you can help:
 
 - Send a pull request with your awesome features and bug fixes
 - Help users resolve their [issues](../../issues?q=is%3Aopen+is%3Aissue).
-- Support the development of this image with a [donation](http://www.damagehead.com/donate/)
 
 ## Issues
 
@@ -79,10 +78,7 @@ docker run --name apt-cacher-ng \
 You can customize the launch command of Apt-Cacher NG server by specifying arguments to `apt-cacher-ng` on the `docker run` command. For example the following command prints the help menu of `apt-cacher-ng` command:
 
 ```bash
-docker run --name apt-cacher-ng -it --rm \
-  --publish 3142:3142 \
-  --volume /srv/docker/apt-cacher-ng:/var/cache/apt-cacher-ng \
-  vicamo/apt-cacher-ng:latest apt-cacher-ng -h
+docker run --interactive --tty --rm vicamo/apt-cacher-ng:latest apt-cacher-ng -h
 ```
 
 ## Persistence
@@ -129,7 +125,8 @@ docker exec -it apt-cacher-ng tail -f /var/log/apt-cacher-ng/apt-cacher.log
 Using the [Command-line arguments](#command-line-arguments) feature, you can specify the `-e` argument to initiate Apt-Cacher NG's cache expiry maintenance task.
 
 ```bash
-docker run --name apt-cacher-ng -it --rm \
+docker run --name apt-cacher-ng \
+  --interactive --tty --rm \
   --publish 3142:3142 \
   --volume /srv/docker/apt-cacher-ng:/var/cache/apt-cacher-ng \
   vicamo/apt-cacher-ng:latest apt-cacher-ng -e
@@ -162,7 +159,7 @@ To upgrade to newer releases:
   4. Start the updated image
 
   ```bash
-  docker run -name apt-cacher-ng -d \
+  docker run -name apt-cacher-ng \
     [OPTIONS] \
     vicamo/apt-cacher-ng:latest
   ```
