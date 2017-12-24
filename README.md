@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/sameersbn/docker-apt-cacher-ng.svg?style=shield)](https://circleci.com/gh/sameersbn/docker-apt-cacher-ng) [![Docker Repository on Quay.io](https://quay.io/repository/sameersbn/apt-cacher-ng/status "Docker Repository on Quay.io")](https://quay.io/repository/sameersbn/apt-cacher-ng)
+[![Travis CI](https://travis-ci.org/vicamo/docker_apt-cacher-ng.svg?branch=master)](https://travis-ci.org/vicamo/docker_apt-cacher-ng)
 
 # vicamo/apt-cacher-ng:latest
 
