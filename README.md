@@ -1,6 +1,6 @@
 [![Circle CI](https://circleci.com/gh/sameersbn/docker-apt-cacher-ng.svg?style=shield)](https://circleci.com/gh/sameersbn/docker-apt-cacher-ng) [![Docker Repository on Quay.io](https://quay.io/repository/sameersbn/apt-cacher-ng/status "Docker Repository on Quay.io")](https://quay.io/repository/sameersbn/apt-cacher-ng)
 
-# sameersbn/apt-cacher-ng:latest
+# vicamo/apt-cacher-ng:latest
 
 - [Introduction](#introduction)
   - [Contributing](#contributing)
@@ -29,7 +29,6 @@ If you find this image useful here's how you can help:
 
 - Send a pull request with your awesome features and bug fixes
 - Help users resolve their [issues](../../issues?q=is%3Aopen+is%3Aissue).
-- Support the development of this image with a [donation](http://www.damagehead.com/donate/)
 
 ## Issues
 
@@ -47,18 +46,16 @@ If the above recommendations do not help then [report your issue](../../issues/n
 
 ## Installation
 
-Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/sameersbn/apt-cacher-ng) and is the recommended method of installation.
-
-> **Note**: Builds are also available on [Quay.io](https://quay.io/repository/sameersbn/apt-cacher-ng)
+Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/vicamo/apt-cacher-ng) and is the recommended method of installation.
 
 ```bash
-docker pull sameersbn/apt-cacher-ng:latest
+docker pull vicamo/apt-cacher-ng:latest
 ```
 
 Alternatively you can build the image yourself.
 
 ```bash
-docker build -t sameersbn/apt-cacher-ng github.com/sameersbn/docker-apt-cacher-ng
+docker build -t vicamo/apt-cacher-ng github.com/vicamo/docker_apt-cacher-ng
 ```
 
 ## Quickstart
@@ -66,10 +63,12 @@ docker build -t sameersbn/apt-cacher-ng github.com/sameersbn/docker-apt-cacher-n
 Start Apt-Cacher NG using:
 
 ```bash
-docker run --name apt-cacher-ng -d --restart=always \
+docker run --name apt-cacher-ng \
+  --detach \
+  --init --restart=always \
   --publish 3142:3142 \
   --volume /srv/docker/apt-cacher-ng:/var/cache/apt-cacher-ng \
-  sameersbn/apt-cacher-ng:latest
+  vicamo/apt-cacher-ng:latest
 ```
 
 *Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
@@ -79,10 +78,7 @@ docker run --name apt-cacher-ng -d --restart=always \
 You can customize the launch command of Apt-Cacher NG server by specifying arguments to `apt-cacher-ng` on the `docker run` command. For example the following command prints the help menu of `apt-cacher-ng` command:
 
 ```bash
-docker run --name apt-cacher-ng -it --rm \
-  --publish 3142:3142 \
-  --volume /srv/docker/apt-cacher-ng:/var/cache/apt-cacher-ng \
-  sameersbn/apt-cacher-ng:latest -h
+docker run --interactive --tty --rm vicamo/apt-cacher-ng:latest apt-cacher-ng -h
 ```
 
 ## Persistence
@@ -129,10 +125,11 @@ docker exec -it apt-cacher-ng tail -f /var/log/apt-cacher-ng/apt-cacher.log
 Using the [Command-line arguments](#command-line-arguments) feature, you can specify the `-e` argument to initiate Apt-Cacher NG's cache expiry maintenance task.
 
 ```bash
-docker run --name apt-cacher-ng -it --rm \
+docker run --name apt-cacher-ng \
+  --interactive --tty --rm \
   --publish 3142:3142 \
   --volume /srv/docker/apt-cacher-ng:/var/cache/apt-cacher-ng \
-  sameersbn/apt-cacher-ng:latest -e
+  vicamo/apt-cacher-ng:latest apt-cacher-ng -e
 ```
 
 The same can also be achieved on a running instance by visiting the url http://localhost:3142/acng-report.html in the web browser and selecting the **Start Scan and/or Expiration** option.
@@ -144,7 +141,7 @@ To upgrade to newer releases:
   1. Download the updated Docker image:
 
   ```bash
-  docker pull sameersbn/apt-cacher-ng:latest
+  docker pull vicamo/apt-cacher-ng:latest
   ```
 
   2. Stop the currently running image:
@@ -162,9 +159,9 @@ To upgrade to newer releases:
   4. Start the updated image
 
   ```bash
-  docker run -name apt-cacher-ng -d \
+  docker run -name apt-cacher-ng \
     [OPTIONS] \
-    sameersbn/apt-cacher-ng:latest
+    vicamo/apt-cacher-ng:latest
   ```
 
 ## Shell Access
