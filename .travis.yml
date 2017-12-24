@@ -1,0 +1,12 @@
+sudo: required
+services:
+- docker
+
+branches:
+  only: master
+
+script:
+- docker build --tag vicamo/apt-cacher-ng .
+- docker run --detach --init --publish 23142:3142 vicamo/apt-cacher-ng
+- sleep 10;
+- curl --retry 10 --retry-delay 5 -v -s -L -o /dev/null http://127.0.0.1:23142/apt-cacher
